@@ -43,12 +43,13 @@
 
 \lstset{language=C, basicstyle=\footnotesize,
 numbers=left,keywordstyle=\color{blue},commentstyle=\color{teal},stringstyle=\color{red}, frame=single}
-\begin{lstlisting}
+\begin{minted}[linenos=true,obeytabs,frame=single]{c++}
 int K = 0;
-for (int i = 0; i < n; ++i)
-	for (int j = 1; j < n; ++j)
-		++K;
-\end{lstlisting}
+for (int i = 0; i < n; ++i) //"i-0" τυπογραφικό
+    for (int j = 1; j < n; ++j)
+        ++K;
+\end{minted}
+Είναι $O(n^2)$ -> n (εξωτερική for) * n (εσωτερική for)
 %}}}
 
 %{{{Q2: Stack pop & mult
@@ -56,30 +57,30 @@ for (int i = 0; i < n; ++i)
 Θεωρώ ότι η isEmpty επιστρέφει 1 αν η στοίβα είναι άδεια, αλλιώς επιστρέφει 0.
 Επιπλέον, η pop έχει ως τιμή επιστροφής την τιμή του στοιχείου που αφαιρείται.
 
-\begin{lstlisting}
+\begin{minted}[linenos=true,obeytabs,frame=single]{c++}
 int product (stack s)
 {
-	int acc = 1;	//1 is the neutral element for multiplication
-	while (isEmpty(s))
-		acc *= pop(s);
-	return acc
+    int acc = 1;    //1 is the neutral element for multiplication
+    while (isEmpty(s))
+        acc *= pop(s);
+    return acc
 }
-\end{lstlisting}
+\end{minted}
 
-\begin{lstlisting}
+\begin{minted}[linenos=true,obeytabs,frame=single]{c++}
 //Easier to comprehend
 int product (stack s)
 {
-	int acc = 1;
-	int temp;
-	while (isEmpty(s) != 1) {
-		temp = pop(s);
-		acc = acc * temp
-	}
-	return acc
+    int acc = 1;
+    int temp;
+    while (isEmpty(s) != 1) {
+        temp = pop(s);
+        acc = acc * temp
+    }
+    return acc
 }
 
-\end{lstlisting}
+\end{minted}
 %}}}
 
 %{{{Q3: Recursion
@@ -91,13 +92,13 @@ Cheat answer:
 Serious answer:\\
 A)
 \begin{itemize}
-	\item f(10)	-> τυπώνει 10, μπαίνει στο "n\%2 == 0" (c)
-	\item f(5)	-> τυπώνει 5,  μπαίνει στο "else" (c)
-	\item f(16)	-> τυπώνει 16,  μπαίνει στο (b)
-	\item f(8)	-> τυπώνει 8,  μπαίνει στο (b)
-	\item f(4)	-> τυπώνει 4,  μπαίνει στο (b)
-	\item f(2)	-> τυπώνει 2,  μπαίνει στο (b)
-	\item f(1)	-> τυπώνει 1,  μπαίνει στο "n==1", τυπώνει "ΤΕΛΟΣ" και τερματίζει
+    \item f(10) -> τυπώνει 10, μπαίνει στο "n\%2 == 0" (c)
+    \item f(5)  -> τυπώνει 5,  μπαίνει στο "else" (c)
+    \item f(16) -> τυπώνει 16,  μπαίνει στο (b)
+    \item f(8)  -> τυπώνει 8,  μπαίνει στο (b)
+    \item f(4)  -> τυπώνει 4,  μπαίνει στο (b)
+    \item f(2)  -> τυπώνει 2,  μπαίνει στο (b)
+    \item f(1)  -> τυπώνει 1,  μπαίνει στο "n==1", τυπώνει "ΤΕΛΟΣ" και τερματίζει
 \end{itemize}
 
 B) Θα τυπωθούν ακριβώς τα ίδια μηνύματα, με αντίστροφη σειρά:\\
@@ -110,50 +111,50 @@ B) Θα τυπωθούν ακριβώς τα ίδια μηνύματα, με α�
 Υποθέτουμε ότι οι stdlib.h και string.h έχουν γίνει include στο αρχείο μας.\\
 Υποθέτουμε επίσης ότι η δομή που χειριζόμαστε είναι η παρακάτω.
 
-\begin{lstlisting}
+\begin{minted}[linenos=true,obeytabs,frame=single]{c++}
 struct node {
-	char *word;
-	struct node *next;
+    char *word;
+    struct node *next;
 };
-\end{lstlisting}
+\end{minted}
 
-\begin{lstlisting}
+\begin{minted}[linenos=true,obeytabs,frame=single]{c++}
 struct node *remDupl(struct node *myList)
 {
-	struct node *ptr;
-	struct node *temp;
-	if (myList == NULL)
-		return myList;	\\check if empty list
-	ptr = myList;
-	while (ptr->next != NULL) {
-		if (strcmp(ptr->word, ptr->next->word) == 0) \{	\\if we find string match
-			temp = ptr->next->next;	\\keep where the 2nd node points
-			free(ptr->next);		\\delete node
-			ptr->next = temp;		\\restore pointer
-		} else
-			ptr = ptr->next;		\\check next 2 nodes
-	}
+    struct node *ptr;
+    struct node *temp;
+    if (myList == NULL)
+        return myList;  //check if empty list
+    ptr = myList;
+    while (ptr->next != NULL) {
+        if (strcmp(ptr->word, ptr->next->word) == 0) { //if we find string match
+            temp = ptr->next->next; //keep where the 2nd node points
+            free(ptr->next);        //delete node
+            ptr->next = temp;       //restore pointer
+        } else
+            ptr = ptr->next;        //check next 2 nodes
+    }
 }
-\end{lstlisting}
+\end{minted}
 %}}}
 
 %{{{Q5: Binary Tree
 \subsection{Θέμα 5 \textsuperscript{o}}
 A)\\
-\begin{lstlisting}
-int c = 0;	//global
+\begin{minted}[linenos=true,obeytabs,frame=single]{c++}
+int c = 0;  //global
 
 int traverseCount(tree t)
 {
-	if(t == NULL)
-		return 0;
-	if(t->left != NULL && t->right != NULL)
-		++c;
-	traverseCount(t->left);
-	traverseCount(t->right);
-	return c;
+    if(t == NULL)
+        return 0;
+    if(t->left != NULL && t->right != NULL)
+        ++c;
+    traverseCount(t->left);
+    traverseCount(t->right);
+    return c;
 }
-\end{lstlisting}
+\end{minted}
 
 B)
 5 -> 4 -> 2 -> 8 -> 6 -> 7 -> 9
@@ -230,6 +231,59 @@ i = 4: Καμία αντιμετάθεση, ο πίνακας είναι ταξ�
 %{{{Ιούλιος 2011
 \section{Ιούλιος 2011}
 
+%{{{Q1: Execution time
+\subsection{Θέμα 1 \textsuperscript{o}}
+Κάθε βασική λειτουργία (tfetch, tstore, tC, tH, κ.λ.π.) = 1 μονάδα χρόνου, να
+υπολογιστεί χρόνος εκτέλεσης και άνω ασυμπτωτικό όριο Ο() για τον παρακάτω
+κώδικα:
+
+\begin{minted}[linenos=true,obeytabs,frame=single]{c++}
+int K = 0;
+for (i = 0; i < n; i++)
+    for (int j = 0; j < n; ++j) // "j<m" τυπογραφικό
+        f(n);   //Πολυπλοκότητα της f(n): O(n)
+\end{minted}
+Είναι $O(n^3)$ -> n(εξωτερική for) * n(εσωτερική for) * O(n))
+%}}}
+
+%{{{Q2: Array
+\subsection{Θέμα 2 \textsuperscript{o}}
+\begin{minted}[linenos=true,obeytabs,frame=single]{c++}
+#define ARRSIZE 100
+
+int evenElementsSum (int* array)
+{
+    int sum = 0;
+    int i;
+
+    for (i = 0; i < ARRSIZE; i += 2)
+        sum += *(array + i);
+    return sum;
+}
+\end{minted}
+
+%}}}
+
+%{{{Q3: List
+\subsection{Θέμα 3 \textsuperscript{o}}
+Λύση γραμμικού χρόνου:
+%\begin{lstlisting}
+\begin{minted}[linenos=true,obeytabs,frame=single]{c++}
+node* removeNodes(node* list, int num)
+{
+    node **toDelete;
+    node *ptr = list
+    int count = 0
+    toDelete = (node *) malloc (num * sizeof(node *));
+    while (ptr != NULL) {
+        toDelete[count % n] = ptr;
+        ptr = ptr->next;
+        ++count;
+    }
+\end{minted}
+%\end{lstlisting}
+
+%}}}
 
 %}}}
 
