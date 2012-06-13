@@ -36,24 +36,22 @@
 \setcounter{section}{1}
 
 %{{{Q1: Execution time
-\subsection{Θέμα 1 \textsuperscript{o}}
+\subsection{Θέμα 1 \textsuperscript{o} - Πολυπλοκότητα}
 Κάθε βασική λειτουργία (tfetch, tstore, tC, tH, κ.λ.π.) = 1 μονάδα χρόνου, να
 υπολογιστεί χρόνος εκτέλεσης και άνω ασυμπτωτικό όριο Ο() για τον παρακάτω
 κώδικα:
 
-\lstset{language=C, basicstyle=\footnotesize,
-numbers=left,keywordstyle=\color{blue},commentstyle=\color{teal},stringstyle=\color{red}, frame=single}
 \begin{minted}[linenos=true,obeytabs,frame=single]{c++}
 int K = 0;
-for (int i = 0; i < n; ++i) //"i-0" τυπογραφικό
+for (int i = 0; i < n; ++i) //"i-0" typo mistake
     for (int j = 1; j < n; ++j)
         ++K;
 \end{minted}
-Είναι $O(n^2)$ -> n (εξωτερική for) * n (εσωτερική for)
+Είναι $O(n^2)$ -> n (εξωτερική for) * n (εσωτερική for) * O(1)
 %}}}
 
-%{{{Q2: Stack pop & mult
-\subsection{Θέμα 2 \textsuperscript{o}}
+%{{{Q2: Stack
+\subsection{Θέμα 2 \textsuperscript{o} - Στοίβα}
 Θεωρώ ότι η isEmpty επιστρέφει 1 αν η στοίβα είναι άδεια, αλλιώς επιστρέφει 0.
 Επιπλέον, η pop έχει ως τιμή επιστροφής την τιμή του στοιχείου που αφαιρείται.
 
@@ -84,7 +82,7 @@ int product (stack s)
 %}}}
 
 %{{{Q3: Recursion
-\subsection{Θέμα 3 \textsuperscript{o}}
+\subsection{Θέμα 3 \textsuperscript{o} - Κλήση Αναδρομικής Συνάρτησης}
 Cheat answer:
 Δε θα τυπωθεί τίποτα, θα φάει syntax error στην \textit{"printf(“ΤΕΛΟΣ
 \textbackslash{}n”;} \\
@@ -106,7 +104,7 @@ B) Θα τυπωθούν ακριβώς τα ίδια μηνύματα, με α�
 %}}}
 
 %{{{Q4: List Duplicates
-\subsection{Θέμα 4 \textsuperscript{o}}
+\subsection{Θέμα 4 \textsuperscript{o} - Συνδεδεμένη Λίστα}
 
 Υποθέτουμε ότι οι stdlib.h και string.h έχουν γίνει include στο αρχείο μας.\\
 Υποθέτουμε επίσης ότι η δομή που χειριζόμαστε είναι η παρακάτω.
@@ -139,7 +137,7 @@ struct node *remDupl(struct node *myList)
 %}}}
 
 %{{{Q5: Binary Tree
-\subsection{Θέμα 5 \textsuperscript{o}}
+\subsection{Θέμα 5 \textsuperscript{o} - Δυαδικό Δέντρο}
 A)\\
 \begin{minted}[linenos=true,obeytabs,frame=single]{c++}
 int c = 0;  //global
@@ -156,12 +154,25 @@ int traverseCount(tree t)
 }
 \end{minted}
 
+Ή (καλύτερα)\\
+\begin{minted}[linenos=true,obeytabs,frame=single]{c++}
+int traverseCount(tree t)
+{
+    if(t == NULL)
+        return 0;
+    if(t->left != NULL && t->right != NULL)
+        return 1 + traverseCount(t->left) + traverseCount(t->right);
+    else
+        return traverseCount(t->left) + traverseCount(t->right);
+}
+\end{minted}
+
 B)
 5 -> 4 -> 2 -> 8 -> 6 -> 7 -> 9
 %}}}
 
 %{{{Q6: BubbleSort
-\subsection{Θέμα 6 \textsuperscript{o}}
+\subsection{Θέμα 6 \textsuperscript{o} - Ταξινόμηση}
 Αρχικά : [2,1,4,1,6,8,3,5]\\
 i = 7:
 
@@ -209,7 +220,7 @@ i = 4: Καμία αντιμετάθεση, ο πίνακας είναι ταξ�
 %}}}
 
 %{{{Q7: AVL Trees
-\subsection{Θέμα 7 \textsuperscript{o}}
+\subsection{Θέμα 7 \textsuperscript{o} - AVL Δέντρα}
 Εισαγωγή 1,4:
 \includegraphics[scale=0.3]{files/im1_4.png}
 Εισαγωγή 6 (rebalance):
@@ -232,7 +243,7 @@ i = 4: Καμία αντιμετάθεση, ο πίνακας είναι ταξ�
 \section{Ιούλιος 2011}
 
 %{{{Q1: Execution time
-\subsection{Θέμα 1 \textsuperscript{o}}
+\subsection{Θέμα 1 \textsuperscript{o} - Πολυπλοκότητα}
 Κάθε βασική λειτουργία (tfetch, tstore, tC, tH, κ.λ.π.) = 1 μονάδα χρόνου, να
 υπολογιστεί χρόνος εκτέλεσης και άνω ασυμπτωτικό όριο Ο() για τον παρακάτω
 κώδικα:
@@ -240,14 +251,14 @@ i = 4: Καμία αντιμετάθεση, ο πίνακας είναι ταξ�
 \begin{minted}[linenos=true,obeytabs,frame=single]{c++}
 int K = 0;
 for (i = 0; i < n; i++)
-    for (int j = 0; j < n; ++j) // "j<m" τυπογραφικό
-        f(n);   //Πολυπλοκότητα της f(n): O(n)
+    for (int j = 0; j < n; ++j) // "j<m" typo
+        f(n);   // f(n) Complexity: O(n)
 \end{minted}
 Είναι $O(n^3)$ -> n(εξωτερική for) * n(εσωτερική for) * O(n))
 %}}}
 
 %{{{Q2: Array
-\subsection{Θέμα 2 \textsuperscript{o}}
+\subsection{Θέμα 2 \textsuperscript{o} - Πίνακες}
 \begin{minted}[linenos=true,obeytabs,frame=single]{c++}
 #define ARRSIZE 100
 
@@ -265,26 +276,56 @@ int evenElementsSum (int* array)
 %}}}
 
 %{{{Q3: List
-\subsection{Θέμα 3 \textsuperscript{o}}
+\subsection{Θέμα 3 \textsuperscript{o} - Λίστες}
 Λύση γραμμικού χρόνου:
-%\begin{lstlisting}
 \begin{minted}[linenos=true,obeytabs,frame=single]{c++}
-node* removeNodes(node* list, int num)
+struct node* removeNodes(node* list, int num)
 {
-    node **toDelete;
-    node *ptr = list
-    int count = 0
-    toDelete = (node *) malloc (num * sizeof(node *));
+    struct node *ptr = list
+    struct node *temp;
+    int count = 0;
+    /* Count the nodes */
     while (ptr != NULL) {
-        toDelete[count % n] = ptr;
         ptr = ptr->next;
         ++count;
     }
+    ptr = head;
+    --count;    //needed to stop at the node before the ones to be deleted
+    /* Find desired node */
+    while (count != num) {
+        ptr = ptr->next;
+        --count;
+    }
+    /*Make new last node point to NULL */
+    temp = ptr->next;
+    ptr->next = NULL
+    ptr = temp;
+    /* Delete all nodes */
+    while (ptr != NULL) {
+        temp = ptr->next;
+        free(ptr);
+        ptr = temp;
+    }
+    /* Return the list after deleting nodes */
+    return list;
 \end{minted}
-%\end{lstlisting}
 
 %}}}
 
+%{{{Q4: Trees
+\subsection{Θέμα 4 \textsuperscript{o} - Δέντρα}
+
+\begin{minted}[linenos=true,obeytabs,frame=single]{c++}
+int treeAdder(tree t, int min, int max)
+{
+    if(t == NULL)
+        return 0;
+    if((t->value < min) || (t->value > max))
+        return t->value + treeAdder(t->left) + treeAdder(t->right);
+    else
+        return treeAdder(t->left) + treeAdder(t->right);
+}
+\end{minted}
 %}}}
 
 
