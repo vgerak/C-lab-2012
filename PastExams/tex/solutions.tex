@@ -300,7 +300,7 @@ struct node* removeNodes(node* list, int num)
     temp = ptr->next;
     ptr->next = NULL
     ptr = temp;
-    /* Delete all nodes */
+    /* Delete next nodes */
     while (ptr != NULL) {
         temp = ptr->next;
         free(ptr);
